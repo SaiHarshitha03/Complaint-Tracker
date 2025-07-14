@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Write a Complaint</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #d0e7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #4a90e2;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .back-btn {
+      background-color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Write a Complaint</h2>
+
+    <label for="type">Complaint Type</label>
+    <select id="type">
+      <option>Water Leakage</option>
+      <option>Electricity Issue</option>
+      <option>Cleanliness</option>
+      <option>Other</option>
+    </select>
+    <label>Urgency:</label>
+<select id="urgency">
+  <option>Low</option>
+  <option>Medium</option>
+  <option>High</option>
+</select>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" placeholder="Enter your location" />
+
+    <label for="desc">Description</label>
+    <textarea id="desc" rows="4" placeholder="Explain the issue..."></textarea>
+
+    <button onclick="submitComplaint()">Submit</button>
+    <button class="back-btn" onclick="goBack()">← Back</button>
+  </div>
+
+  <script>
+    function submitComplaint() {
+      alert("Complaint submitted successfully!");
+      window.location.href = "dashboard.html";
+    }
+
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

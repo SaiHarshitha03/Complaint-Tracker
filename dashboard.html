@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complaint Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;  /* ✅ center vertically */
+      height: 100vh;         /* ✅ fill full height for vertical centering */
+      padding: 20px;
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dashboard-header {
+      background: #687ef3;
+      padding: 25px;
+      color: white;
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .quick-actions {
+      padding: 30px 20px 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .custom-btn {
+      width: 100%;
+      max-width: 500px;
+      padding: 18px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .write-btn {
+      background-color: #007bff;
+    }
+
+    .write-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .track-btn {
+      background-color: #28a745;
+    }
+
+    .track-btn:hover {
+      background-color: #1e7e34;
+    }
+
+    .back-btn {
+      background-color: #6c757d;
+    }
+
+    .back-btn:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="dashboard-header">Complaint Dashboard</div>
+
+    <div class="quick-actions">
+      <button class="custom-btn write-btn" onclick="writeComplaint()">✍️ Write a Complaint</button>
+      <button class="custom-btn track-btn" onclick="trackComplaint()">📍 Track Complaint</button>
+      <button class="custom-btn back-btn" onclick="goBack()">← Back</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "profile.html";
+    }
+
+    function writeComplaint() {
+      window.location.href = "wc.html";
+    }
+
+    function trackComplaint() {
+      window.location.href = "tc.html";
+    }
+  </script>
+
+</body>
+</html>
+

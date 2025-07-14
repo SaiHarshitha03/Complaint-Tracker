@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7fb;
+      padding: 30px;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 20px 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background-color: #e8f0ff;
+      flex: 1;
+      min-width: 200px;
+      padding: 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card h3 {
+      margin: 10px 0 5px;
+      font-size: 24px;
+    }
+
+    .stat-card p {
+      margin: 0;
+      color: #666;
+    }
+
+    .stat-card.total {
+      background-color: #fdecef;
+    }
+
+    .stat-card.pending {
+      background-color: #fff8e1;
+    }
+
+    .stat-card.resolved {
+      background-color: #e8f5e9;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e3f2fd;
+    }
+
+    .actions button {
+      margin: 2px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .respond {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .complete {
+      background-color: #2196f3;
+      color: white;
+    }
+
+    .logout-btn {
+      background-color: #555;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+    }
+
+    /* Modern Respond Popup */
+    #responsePopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+      padding: 25px 30px;
+      width: 400px;
+      z-index: 1000;
+      animation: popupFade 0.3s ease-in-out;
+    }
+
+    #responsePopup h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    #responsePopup textarea {
+      width: 100%;
+      height: 120px;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+      box-sizing: border-box;
+    }
+
+    #responsePopup button {
+      padding: 8px 14px;
+      font-size: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #responsePopup button:first-of-type {
+      background-color: #007bff;
+      color: white;
+      margin-right: 10px;
+    }
+
+    #responsePopup button:last-of-type {
+      background-color: #e0e0e0;
+      color: black;
+    }
+
+    @keyframes popupFade {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>Admin Dashboard</h2>
+
+    <div class="stats">
+      <div class="stat-card total" onclick="showComplaints('all')">
+        <div>❗</div>
+        <h3>20</h3>
+        <p>Total Complaints</p>
+      </div>
+      <div class="stat-card pending" onclick="showComplaints('Pending')">
+        <div>⏳</div>
+        <h3>8</h3>
+        <p>Pending Complaints</p>
+        <p style="font-size: 13px; color: #555;">Needs urgent review</p>
+      </div>
+      <div class="stat-card resolved" onclick="showComplaints('Resolved')">
+        <div>✅</div>
+        <h3>12</h3>
+        <p>Resolved Complaints</p>
+        <p style="font-size: 13px; color: #555;">Marked as completed</p>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Complaint</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="complaints-body">
+          <tr data-status="Pending">
+            <td>1</td>
+            <td>9999912345</td>
+            <td>No water in bathroom</td>
+            <td>Pending</td>
+            <td class="actions">
+              <button class="respond">Respond</button>
+              <button class="complete">Mark as Completed</button>
+            </td>
+          </tr>
+          <tr data-status="Pending">
+            <td>2</td>
+            <td>8888876543</td>
+            <td>Broken window</td>
+            <td>Pending</td>
+            <td class="actions">
+              <button class="respond">Respond</button>
+              <button class="complete">Mark as Completed</button>
+            </td>
+          </tr>
+          <tr data-status="Resolved">
+            <td>3</td>
+            <td>7777765432</td>
+            <td>Wi-Fi not working</td>
+            <td>Resolved</td>
+            <td class="actions">
+              <button class="respond">Respond</button>
+              <button class="complete">Mark as Completed</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="logout-btn" onclick="goBack()">← Logout</button>
+  </div>
+
+  <!-- Response Popup -->
+  <div id="responsePopup">
+    <h3>Respond to Complaint</h3>
+    <textarea placeholder="Type your response here..."></textarea>
+    <br>
+    <button onclick="sendResponse()">Send</button>
+    <button onclick="closePopup()">Cancel</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "login.html";
+    }
+
+    function showComplaints(filter) {
+      const rows = document.querySelectorAll('#complaints-body tr');
+      rows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        row.style.display = (filter === 'all' || status === filter) ? '' : 'none';
+      });
+    }
+
+    // Respond button action
+    document.querySelectorAll('.respond').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('responsePopup').style.display = 'block';
+      });
+    });
+
+    function closePopup() {
+      document.getElementById('responsePopup').style.display = 'none';
+    }
+
+    function sendResponse() {
+      const response = document.querySelector('#responsePopup textarea').value.trim();
+      if (response === "") {
+        alert("Please write something before sending.");
+        return;
+      }
+      alert("Response sent: " + response);
+      closePopup();
+    }
+
+    // Mark as completed button
+    document.querySelectorAll('.complete').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const row = this.closest('tr');
+        row.setAttribute('data-status', 'Resolved');
+        row.children[3].innerText = 'Resolved';
+        row.style.backgroundColor = '#e8f5e9';
+      });
+    });
+  </script>
+</body>
+</html>

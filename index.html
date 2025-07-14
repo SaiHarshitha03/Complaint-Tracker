@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Complaint Tracker - Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      background-color: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .heading {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #007aff;
+      margin-bottom: 25px;
+    }
+
+    .toggle-label {
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: block;
+      text-align: left;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .toggle-switch {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 50px;
+      margin-bottom: 15px;
+    }
+
+    .toggle-option {
+      width: 50%;
+      text-align: center;
+      padding: 8px 0;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: 0.3s;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .toggle-option.active {
+      background-color: #007aff;
+      color: white;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005ecb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="heading">Complaint Tracker</div>
+
+    <label class="toggle-label">Login as:</label>
+    <div class="toggle-switch">
+      <div id="userToggle" class="toggle-option active" onclick="setLoginType('user')">User</div>
+      <div id="adminToggle" class="toggle-option" onclick="setLoginType('admin')">Admin</div>
+    </div>
+
+    <form onsubmit="login(event)">
+      <input type="text" id="mobile" placeholder="Mobile Number" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    let selectedType = "user";
+
+    function setLoginType(type) {
+      selectedType = type;
+      document.getElementById('userToggle').classList.remove('active');
+      document.getElementById('adminToggle').classList.remove('active');
+      document.getElementById(type + 'Toggle').classList.add('active');
+    }
+
+    function login(event) {
+      event.preventDefault();
+      const mobile = document.getElementById('mobile').value;
+      localStorage.setItem("userMobile", mobile);
+      if (selectedType === "admin") {
+        window.location.href = "admin.html";
+      } else {
+        window.location.href = "profile.html";
+      }
+    }
+  </script>
+
+</body>
+</html>

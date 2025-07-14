@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Complaint Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fc;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .tracker {
+      max-width: 600px;
+      width: 100%;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      background: #6c8af6;
+      color: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .complaint-card {
+      background: #eef4ff;
+      padding: 18px;
+      margin: 15px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .complaint-card:hover {
+      transform: scale(1.02);
+      background: #e1ebff;
+    }
+
+    .complaint-card strong {
+      display: inline-block;
+      min-width: 80px;
+    }
+
+    .status-resolved {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-pending {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .timeline {
+      margin-top: 20px;
+      padding-left: 20px;
+      border-left: 2px solid #6c8af6;
+    }
+
+    .timeline-step {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .timeline-step::before {
+      content: "●";
+      color: #6c8af6;
+      font-size: 20px;
+      position: absolute;
+      left: -13px;
+      top: -2px;
+    }
+
+    .timeline-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .timeline-time {
+      font-size: 12px;
+      color: gray;
+      margin-bottom: 5px;
+    }
+
+    .feedback-btn {
+      margin-top: 25px;
+      background-color: #6c8af6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      background-color: #666;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .details {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .active .details {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tracker">
+    <h2>Complaint Tracker</h2>
+
+    <div class="complaint-card" onclick="toggleDetails(this)">
+      <div><strong>Type:</strong> Internet Issue</div>
+      <div><strong>Location:</strong> Block A</div>
+      <div><strong>Status:</strong> <span class="status-resolved">Resolved</span></div>
+
+      <div class="details">
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-title">Complaint Submitted</div>
+            <div class="timeline-time">2025-07-01 10:00 AM</div>
+            <div>Your complaint has been submitted successfully.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-title">Assigned to Technician</div>
+            <div class="timeline-time">2025-07-01 01:00 PM</div>
+            <div>We have assigned a technician to handle the issue.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-title">Resolved</div>
+            <div class="timeline-time">2025-07-02 03:00 PM</div>
+            <div>Your complaint has been resolved.</div>
+          </div>
+        </div>
+       <button class="feedback-btn" onclick="goToFeedback()">Write Feedback or Rate</button>
+
+      </div>
+    </div>
+
+    <div class="complaint-card" onclick="toggleDetails(this)">
+      <div><strong>Type:</strong> Water Leakage</div>
+      <div><strong>Location:</strong> Block B</div>
+      <div><strong>Status:</strong> <span class="status-pending">Pending</span></div>
+
+      <div class="details">
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-title">Complaint Submitted</div>
+            <div class="timeline-time">2025-07-10 09:00 AM</div>
+            <div>We have received your complaint.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-title">Waiting for Assignment</div>
+            <div class="timeline-time">--</div>
+            <div>Currently waiting to assign a technician.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="complaint-card" onclick="toggleDetails(this)">
+      <div><strong>Type:</strong> Fan Noise</div>
+      <div><strong>Location:</strong> Room 34D</div>
+      <div><strong>Status:</strong> <span class="status-pending">Pending</span></div>
+
+      <div class="details">
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-title">Complaint Submitted</div>
+            <div class="timeline-time">2025-07-11 08:45 AM</div>
+            <div>Your complaint has been received and is under review.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="complaint-card" onclick="toggleDetails(this)">
+      <div><strong>Type:</strong> Broken Window</div>
+      <div><strong>Location:</strong> Hostel C</div>
+      <div><strong>Status:</strong> <span class="status-resolved">Resolved</span></div>
+
+      <div class="details">
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-title">Complaint Submitted</div>
+            <div class="timeline-time">2025-07-05 10:30 AM</div>
+            <div>Reported broken window in room.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-title">Assigned to Maintenance</div>
+            <div class="timeline-time">2025-07-05 01:00 PM</div>
+            <div>Maintenance team dispatched for inspection.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-title">Resolved</div>
+            <div class="timeline-time">2025-07-06 11:30 AM</div>
+            <div>Window fixed and issue closed.</div>
+          </div>
+        </div>
+        <button class="feedback-btn" onclick="goToFeedback()">Write Feedback or Rate</button>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+  </div>
+
+  <script>
+    function toggleDetails(card) {
+      card.classList.toggle("active");
+    }
+
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+
+    function goToFeedback() {
+  window.location.href = "feedback.html";
+}
+
+  </script>
+
+</body>
+</html>
